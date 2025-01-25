@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 4909146287700886898}
   - component: {fileID: 4271309115123006178}
   - component: {fileID: 5296749148065710224}
+  - component: {fileID: -6705081093153284473}
   - component: {fileID: 7751547491822159979}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CannonBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 249.3142, y: 0.68, z: 78.057}
-  m_LocalScale: {x: 0.47556, y: 0.47556, z: 0.47556}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -86,6 +87,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-6705081093153284473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8121682621350729232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236d9c4b1e86e214785b7098e50fce30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocity: {x: 0, y: 0, z: 0}
+  speed: 10
+  flyingTimeoutTime: 10
 --- !u!135 &7751547491822159979
 SphereCollider:
   m_ObjectHideFlags: 0
