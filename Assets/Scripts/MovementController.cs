@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 
 public class MovementController : MonoBehaviour
 {
@@ -15,6 +16,22 @@ public class MovementController : MonoBehaviour
     public GameObject BLFloater;
 
 
+    // Defines the buttons used for movement
+    public KeyCode fwd;
+    public KeyCode right;
+    public KeyCode left;
+
+
+    // Ref to the water surface manager
+    public WaterSurface water;
+
+    // This holds the paramaters necciary in
+    // order to search the water surface
+    WaterSearchParameters Search;
+
+    // Stores the results of the water surface search
+    WaterSearchResult SearchResult;
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,14 +44,22 @@ public class MovementController : MonoBehaviour
     {
 
         
+
         //Forward movement
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(fwd))
         {
-            rb.AddForce(transform.forward * forwardForce);
+            // Projects to the water and gets the result
+            water.ProjectPointOnWaterSurface(Search, out SearchResult);
+
+            if (transform.position.y < SearchResult.projectedPositionWS.y)
+            {
+                rb.AddForce(transform.forward * forwardForce);
+            }
+                
         }
 
         // Clockwise movement
-        if (Input.GetKey(KeyCode.D)) 
+        if (Input.GetKey(right)) 
         {
 
             // Applies forces to all the floaters
@@ -47,7 +72,7 @@ public class MovementController : MonoBehaviour
         }
 
         // Counter-clockwise movement
-        if (Input.GetKey(KeyCode.A)) 
+        if (Input.GetKey(left)) 
         {
 
             // Applies forces to all the floaters

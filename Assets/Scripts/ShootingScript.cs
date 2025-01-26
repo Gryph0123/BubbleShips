@@ -13,6 +13,10 @@ public class ShootingScript : MonoBehaviour
     public GameObject cannonball;
     public GameObject bubbleball;
 
+    // Defines the buttons needed for shooting
+    public KeyCode bubbleButton;
+    public KeyCode ballbutton;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +28,7 @@ public class ShootingScript : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.S)) 
+        if (Input.GetKeyDown(ballbutton)) 
         { 
             // instantiates the cannonball and places it in front of the player
             GameObject cannonballInstance = Instantiate(cannonball, transform.position + transform.forward * 20f + transform.up * 20, Quaternion.identity);
@@ -36,7 +40,7 @@ public class ShootingScript : MonoBehaviour
             float heading = Vector3.SignedAngle(Vector3.right, new Vector3(transform.forward.x, 0f, transform.forward.z), -Vector3.up) * Mathf.Deg2Rad;
 
             // Finds the azimuth from the projectile to the other boat
-            float azimuth = Mathf.Atan((enemy.transform.position.y - cannonballInstance.transform.position.y) // Height diff
+            float azimuth = Mathf.Atan((enemy.transform.position.y + 2f - cannonballInstance.transform.position.y) // Height diff
                 / (new Vector2(enemy.transform.position.x, enemy.transform.position.z) 
                 - new Vector2(cannonballInstance.transform.position.x, cannonballInstance.transform.position.z)).magnitude // Plane diff
                 );
@@ -53,7 +57,7 @@ public class ShootingScript : MonoBehaviour
             ballShooter.velocity = new Vector3 (x, y, z);
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(bubbleButton))
         {
             // instantiates the cannonball and places it in front of the player
             GameObject cannonballInstance = Instantiate(bubbleball, transform.position + transform.forward * 20f + transform.up * 20, Quaternion.identity);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 
 public class BubbleFloatingScript : MonoBehaviour
 {
@@ -25,6 +26,22 @@ public class BubbleFloatingScript : MonoBehaviour
     // Cameras
     public GameObject cinemaCamera;
     public GameObject camera;
+
+    // defines the depth at which the object begins to feel boyancy
+    public float depthBefSub;
+
+    // Ref to the water surface manager
+    public WaterSurface water;
+
+    // This holds the paramaters necciary in
+    // order to search the water surface
+    WaterSearchParameters Search;
+
+    // Stores the results of the water surface search
+    WaterSearchResult SearchResult;
+
+    // Defines if the player is falling from the bubble
+    public bool isFalling;
 
 
     // Start is called before the first frame update
@@ -54,6 +71,7 @@ public class BubbleFloatingScript : MonoBehaviour
                 // Undoes everything that was done when the bubble formed
                 isInBubble = false;
                 bubble.SetActive(false);
+                isFalling = true;
             }
 
             // Camera follows the cinema cam
@@ -64,9 +82,33 @@ public class BubbleFloatingScript : MonoBehaviour
         }
         else
         {
-            // Follows the cinema camera but does not follow the y-axis
-            camera.transform.position = new Vector3(cinemaCamera.transform.position.x, 22f, cinemaCamera.transform.position.z);
-            camera.transform.localRotation = cinemaCamera.transform.localRotation;
+
+            if (isFalling)
+            {
+
+                // When the boat is falling, we must follow the boat on the y-axis too, otherwise the player cannot see
+                camera.transform.position = cinemaCamera.transform.position;
+                camera.transform.localRotation = cinemaCamera.transform.localRotation;
+
+                // Sets up the search paramaters for projecting onto the water surface
+                Search.startPositionWS = transform.position;
+
+                // Projects to the water and gets the result
+                water.ProjectPointOnWaterSurface(Search, out SearchResult);
+
+                if (transform.position.y < SearchResult.projectedPositionWS.y)
+                {
+                    // Makes it such that the boat is NOT falling
+                    isFalling = false;
+                }
+            }
+            else
+            {
+                // Follows the cinema camera but does not follow the y-axis
+                camera.transform.position = new Vector3(cinemaCamera.transform.position.x, 22f, cinemaCamera.transform.position.z);
+                camera.transform.localRotation = cinemaCamera.transform.localRotation;
+            }
+            
         }
     }
 
