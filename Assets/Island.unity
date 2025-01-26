@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1377.8214, g: 2540.3928, b: 6619.4697, a: 1}
+  m_IndirectSpecularColor: {r: 1334.2003, g: 2520.7463, b: 6586.1416, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -11999,7 +11999,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 250, y: 0}
+  m_AnchoredPosition: {x: 222.2, y: 0}
   m_SizeDelta: {x: 352.3, y: 491}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &953654883
@@ -13050,7 +13050,7 @@ MonoBehaviour:
   bubble: {fileID: 223452745}
   rb: {fileID: 1058375434}
   BubbleFloatingForce: 300
-  maxUpwardsSpeed: 7
+  maxUpwardsSpeed: 12
   isInBubble: 0
   cinemaCamera: {fileID: 923060240}
   camera: {fileID: 2021135938}
@@ -21268,7 +21268,7 @@ MonoBehaviour:
   bubble: {fileID: 715031171}
   rb: {fileID: 1804609558}
   BubbleFloatingForce: 300
-  maxUpwardsSpeed: 7
+  maxUpwardsSpeed: 12
   isInBubble: 0
   cinemaCamera: {fileID: 1216252719}
   camera: {fileID: 2117376424}
