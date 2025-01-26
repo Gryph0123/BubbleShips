@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0, z: 0}
-  speed: 10
+  speed: 150
   flyingTimeoutTime: 10
 --- !u!135 &7761170439437384051
 SphereCollider:

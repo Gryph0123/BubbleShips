@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallFlyingScript : MonoBehaviour
 {
     // Creates velocity public so that it can be acsessed by all methods
-    public Vector3 velocity;
+    public Vector3 velocity = Vector3.zero;
 
     // Magnitude of velocity
     public float speed;
@@ -20,6 +20,8 @@ public class BallFlyingScript : MonoBehaviour
     {
         // Scales the velocity in accordance with the speed
         velocity *= speed;
+
+        Debug.Log(velocity);
     }
 
     // Update is called once per frame

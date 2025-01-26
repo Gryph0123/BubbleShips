@@ -14,7 +14,6 @@ public class ShootingScript : MonoBehaviour
     public GameObject bubbleball;
 
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -27,15 +26,60 @@ public class ShootingScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S)) 
         { 
-
             // instantiates the cannonball and places it in front of the player
-            GameObject cannonballInstance = Instantiate(cannonball, transform.position + transform.forward * 20f, Quaternion.identity);
+            GameObject cannonballInstance = Instantiate(cannonball, transform.position + transform.forward * 20f + transform.up * 20, Quaternion.identity);
 
             Debug.Log("Spawned Ball");
 
-            
+
+            // Gets the boat's heading relative to the x-axis
+            float heading = Vector3.SignedAngle(Vector3.right, new Vector3(transform.forward.x, 0f, transform.forward.z), -Vector3.up) * Mathf.Deg2Rad;
+
+            // Finds the azimuth from the projectile to the other boat
+            float azimuth = Mathf.Atan((enemy.transform.position.y - cannonballInstance.transform.position.y) // Height diff
+                / (new Vector2(enemy.transform.position.x, enemy.transform.position.z) 
+                - new Vector2(cannonballInstance.transform.position.x, cannonballInstance.transform.position.z)).magnitude // Plane diff
+                );
+
+            Debug.Log(heading);
+
+            // Converts azimuth and heading into cartesian coordinates
+            float x = Mathf.Cos(azimuth) * Mathf.Cos(heading);
+            float y = Mathf.Sin(azimuth);
+            float z = Mathf.Cos(azimuth) * Mathf.Sin(heading);
+
+            BallFlyingScript ballShooter = cannonballInstance.gameObject.GetComponent<BallFlyingScript>();
+
+            ballShooter.velocity = new Vector3 (x, y, z);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            // instantiates the cannonball and places it in front of the player
+            GameObject cannonballInstance = Instantiate(bubbleball, transform.position + transform.forward * 20f + transform.up * 20, Quaternion.identity);
+
+            Debug.Log("Spawned Ball");
 
 
+            // Gets the boat's heading relative to the x-axis
+            float heading = Vector3.SignedAngle(Vector3.right, new Vector3(transform.forward.x, 0f, transform.forward.z), -Vector3.up) * Mathf.Deg2Rad;
+
+            // Finds the azimuth from the projectile to the other boat
+            float azimuth = Mathf.Atan((enemy.transform.position.y - cannonballInstance.transform.position.y) // Height diff
+                / (new Vector2(enemy.transform.position.x, enemy.transform.position.z)
+                - new Vector2(cannonballInstance.transform.position.x, cannonballInstance.transform.position.z)).magnitude // Plane diff
+                );
+
+            Debug.Log(heading);
+
+            // Converts azimuth and heading into cartesian coordinates
+            float x = Mathf.Cos(azimuth) * Mathf.Cos(heading);
+            float y = Mathf.Sin(azimuth);
+            float z = Mathf.Cos(azimuth) * Mathf.Sin(heading);
+
+            BallFlyingScript ballShooter = cannonballInstance.gameObject.GetComponent<BallFlyingScript>();
+
+            ballShooter.velocity = new Vector3(x, y, z);
         }
 
     }
