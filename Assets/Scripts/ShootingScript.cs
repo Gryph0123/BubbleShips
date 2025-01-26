@@ -17,6 +17,10 @@ public class ShootingScript : MonoBehaviour
     public KeyCode bubbleButton;
     public KeyCode ballbutton;
 
+    // Creates variables to keep track of time
+    public float timer = 0f;
+    public float coolDown = 0.3f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,8 +31,10 @@ public class ShootingScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Updates the timer
+        timer += Time.deltaTime;
 
-        if (Input.GetKeyDown(ballbutton)) 
+        if (Input.GetKeyDown(ballbutton) && timer >= coolDown) 
         { 
             // instantiates the cannonball and places it in front of the player
             GameObject cannonballInstance = Instantiate(cannonball, transform.position + transform.forward * 20f + transform.up * 20, Quaternion.identity);
@@ -55,9 +61,12 @@ public class ShootingScript : MonoBehaviour
             BallFlyingScript ballShooter = cannonballInstance.gameObject.GetComponent<BallFlyingScript>();
 
             ballShooter.velocity = new Vector3 (x, y, z);
+
+            //Resets timer
+            timer = 0f;
         }
 
-        if (Input.GetKeyDown(bubbleButton))
+        if (Input.GetKeyDown(bubbleButton) && timer >= coolDown)
         {
             // instantiates the cannonball and places it in front of the player
             GameObject cannonballInstance = Instantiate(bubbleball, transform.position + transform.forward * 20f + transform.up * 20, Quaternion.identity);
@@ -84,6 +93,9 @@ public class ShootingScript : MonoBehaviour
             BallFlyingScript ballShooter = cannonballInstance.gameObject.GetComponent<BallFlyingScript>();
 
             ballShooter.velocity = new Vector3(x, y, z);
+
+            // Resets the timer
+            timer = 0f;
         }
 
     }

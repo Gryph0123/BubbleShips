@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HealthManager : MonoBehaviour
 {
@@ -11,11 +12,16 @@ public class HealthManager : MonoBehaviour
 
     public TextMeshProUGUI textRenderer;
 
+    public string endGameScene;
+
+    private AudioSource ping;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        ping = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -24,6 +30,7 @@ public class HealthManager : MonoBehaviour
         if (playerHealth <= 0) 
         {
             Debug.Log("game over");
+            SceneManager.LoadScene(endGameScene);
         }
     }
 
@@ -34,7 +41,8 @@ public class HealthManager : MonoBehaviour
         {
             playerHealth -= damagePerBall;
             textRenderer.text = playerHealth.ToString();
-            Debug.Log(playerHealth);
+
+            ping.Play();
 
         }
     }
